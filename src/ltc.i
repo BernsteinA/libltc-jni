@@ -115,26 +115,26 @@ struct LTCDecoder {
 	int biphase_tic;
 };
 
-//struct LTCEncoder {
-//	double fps;
-//	double sample_rate;
-//	double filter_const;
-//	int flags;
-//	enum LTC_TV_STANDARD standard;
-//	ltcsnd_sample_t enc_lo, enc_hi;
-//
-//	size_t offset;
-//	size_t bufsize;
-//	ltcsnd_sample_t *buf;
-//
-//	char state;
-//
-//	double samples_per_clock;
-//	double samples_per_clock_2;
-//	double sample_remainder;
-//
-//	LTCFrame f;
-//};
+struct LTCEncoder {
+	double fps;
+	double sample_rate;
+	double filter_const;
+	int flags;
+	enum LTC_TV_STANDARD standard;
+	ltcsnd_sample_t enc_lo, enc_hi;
+
+	size_t offset;
+	size_t bufsize;
+	ltcsnd_sample_t *buf;
+
+	char state;
+
+	double samples_per_clock;
+	double samples_per_clock_2;
+	double sample_remainder;
+
+	LTCFrame f;
+};
 
 void ltc_frame_to_time(SMPTETimecode *stime, LTCFrame* frame, int flags);
 void ltc_time_to_frame(LTCFrame *frame, SMPTETimecode* stime, enum LTC_TV_STANDARD standard, int flags);
@@ -152,7 +152,7 @@ void decode_ltc(LTCDecoder *d, ltcsnd_sample_t *sound, size_t size, ltc_off_t po
 void ltc_decoder_queue_flush(LTCDecoder* d);
 //int ltc_decoder_queue_length(LTCDecoderp* d);
 
-/*
+
 LTCEncoder* ltc_encoder_create(double sample_rate, double fps, enum LTC_TV_STANDARD standard, int flags);
 void ltc_encoder_free(LTCEncoder *e);
 void ltc_encoder_set_timecode(LTCEncoder *e, SMPTETimecode *t);
@@ -161,20 +161,20 @@ int ltc_encoder_inc_timecode(LTCEncoder *e);
 int ltc_encoder_dec_timecode(LTCEncoder *e);
 void ltc_encoder_set_frame(LTCEncoder *e, LTCFrame *f);
 void ltc_encoder_get_frame(LTCEncoder *e, LTCFrame *f);
-int ltc_encoder_get_buffer(LTCEncoder *e, ltcsnd_sample_t *buf);
-ltcsnd_sample_t *ltc_encoder_get_bufptr(LTCEncoder *e, int *size, int flush);
+int ltc_encoder_copy_buffer(LTCEncoder *e, ltcsnd_sample_t *buf);
+int ltc_encoder_get_bufferptr(LTCEncoder *e, ltcsnd_sample_t **buf, int flush);
 void ltc_encoder_buffer_flush(LTCEncoder *e);
 size_t ltc_encoder_get_buffersize(LTCEncoder *e);
 int ltc_encoder_reinit(LTCEncoder *e, double sample_rate, double fps, enum LTC_TV_STANDARD standard, int flags);
 void ltc_encoder_reset(LTCEncoder *e);
-int ltc_encoder_set_bufsize(LTCEncoder *e, double sample_rate, double fps);
+int ltc_encoder_set_buffersize(LTCEncoder *e, double sample_rate, double fps);
 int ltc_encoder_set_volume(LTCEncoder *e, double dBFS);
 void ltc_encoder_set_filter(LTCEncoder *e, double rise_time);
 int ltc_encoder_encode_byte(LTCEncoder *e, int byte, double speed);
 void ltc_encoder_encode_frame(LTCEncoder *e);
 void ltc_frame_set_parity(LTCFrame *frame, enum LTC_TV_STANDARD standard);
-int parse_bcg_flags(LTCFrame *f, enum LTC_TV_STANDARD standard);
+//int parse_bcg_flags(LTCFrame *f, enum LTC_TV_STANDARD standard);
 ltc_off_t ltc_frame_alignment(double samples_per_frame, enum LTC_TV_STANDARD standard);
-*/
+
 
 
